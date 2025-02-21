@@ -2,10 +2,11 @@
 Console.WriteLine("Hello, World! 8:35pm");
 
 Romantico juan = new Romantico("Juan", 25);
-Amistoso pedro = new Amistoso("Pedron", 30);
+Amistoso pedro = new Amistoso("Pedro", 25);
 Indiferente maria = new Indiferente("Maria", 20);
 Romantico ana = new Romantico("Ana", 22);
 Romantico paquita = new Romantico("Paquita", 26);
+Indiferente roberto = new Indiferente("Roberto",30);
 
 
 juan.MostrarInteres();
@@ -20,17 +21,13 @@ ana.ExpresarSentimientoss();
 paquita.ExpresarSentimientoss();
 
 //Formar parejas 
+Console.WriteLine("----Formar parejas-----");
 
-Persona pareja1 = juan + pedro;
+Persona pareja1 = maria + pedro;
 Persona pareja2 = juan + ana;
-Console.WriteLine("-------------");
-Persona pareja3 = pareja1 + pareja2;
+Console.WriteLine("-----Poliamor");
 
-
-
-//Compara pareja 
-/*
-Console.WriteLine($"Nueva pareja formada: {pareja1.Nombre} con edad pronedio : {pareja1.Edad}");
-Console.WriteLine($"Nueva pareja formada: {pareja2.Nombre} con edad pronedio : {pareja2.Edad}");
-
-*/
+Persona trio = pareja2.CupidoCumplido(juan, ana, paquita);
+Console.WriteLine($"Los nombres del poliamor son {trio.Nombre}, su promedio de edad es {trio.Edad}");
+Persona triof = pareja1.CupidoCumplido(maria, pedro, roberto);
+Console.WriteLine($"Los nombres del poliamor fallido son {triof.Nombre}, su promedio de edad es {triof.Edad}");
