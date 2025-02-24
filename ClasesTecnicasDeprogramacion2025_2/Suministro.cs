@@ -1,4 +1,4 @@
-﻿class Suministo
+﻿class Suministro
 {
     //Propiedades 
     public string Nombre { get; set; }
@@ -7,14 +7,14 @@
 
 
     //constructor 
-    public Suministo(string nombre, int cantidad, int prioridad)
+    public Suministro(string nombre, int cantidad, int prioridad)
     {
         Nombre = nombre;
         Cantidad = cantidad;
         Prioridad = prioridad;
     }
     //sobrecarga del constructor
-    public Suministo(string nombre)
+    public Suministro(string nombre)
     {
         Nombre = nombre;
         Cantidad = 1;
@@ -25,7 +25,7 @@
 
     public void MostrarInfo()
     {
-        Console.WriteLine($"Nombre: {Nombre} Cantidad {Cantidad} Prioridad {Prioridad}");
+        Console.WriteLine($"Nombre: {Nombre} Cantidad: {Cantidad} Prioridad: {Prioridad}");
     }
 
 
