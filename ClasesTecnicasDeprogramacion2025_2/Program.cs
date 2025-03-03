@@ -1,6 +1,6 @@
 ﻿
 using static System.Runtime.InteropServices.JavaScript.JSType;
-
+//Funciones de Apoyo
 static string ObtenerNombre()
 {
     while (true)
@@ -104,5 +104,26 @@ static void MostarEstado(Guerrero jugador, Guerrero enemigo)
     Console.WriteLine("1 Para atacar");
     Console.WriteLine("2 Para defender");
     Console.WriteLine("3 Para fucionarse");
+
+}
+
+//Programa Principal
+
+try
+{
+    Console.WriteLine("Bienvenido al combae, dale un nombre a tu guerrero");
+    
+    string nombre = ObtenerNombre();
+    
+    Guerrero jugador = SeleccionarClase(nombre);
+    Guerrero enemigo = GenerarEnemigo();
+
+    Console.WriteLine($"Te enfrentaras a {enemigo.Nombre} con vida {enemigo.Vida} y ataque {enemigo.Ataque}");
+
+
+
+}
+catch
+{
 
 }
