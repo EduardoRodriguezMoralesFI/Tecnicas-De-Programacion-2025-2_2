@@ -11,8 +11,8 @@ class Guerrero
     public Guerrero(string nombre, int vida, int ataque)
     {
         Nombre = nombre;
-        Ataque = vida;
-        Nombre = nombre;
+        Ataque = ataque;
+        Vida = vida;
     }
 
     //Metodos 
@@ -37,6 +37,8 @@ class Guerrero
          return new Guerrero($"{g1.Nombre} & {g2.Nombre}", (g1.Vida) + (g2.Vida),(g1.Ataque+g2.Ataque)/2) ;
 
     }
+
+
 
 
 
