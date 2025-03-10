@@ -1,2 +1,1 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World! 8:35pm");
+﻿Console.WriteLine("Hola 10:18 am Mar 10 2025");
