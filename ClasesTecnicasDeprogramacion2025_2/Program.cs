@@ -1,52 +1,130 @@
-﻿//Casteos
+﻿//Lista de pagos a procesar 
+List<IPago> ListaPagos = new List<IPago>();
 
-//Conversion implicita 
+bool numerodepagos = false;
 
-int numeroEntero = 42;
-double numeroDouble = numeroEntero;
+do
+{
+    Console.WriteLine("Desea realizar un pago?? y/n");
+    string opcion0 = Console.ReadLine() ?? "";
+    if (opcion0 == "y")
+    {
+        Console.WriteLine("Ingrese el monto a pagar");
+        string montoTexto = Console.ReadLine() ?? "";
 
-Console.WriteLine(numeroEntero);
-Console.WriteLine(numeroDouble);
+        //Conveirte string a double
 
-//conversion explicita 
+        double montoNumero;
 
-double numeroDecimal = 42.96;
-int numeroEntero2 = (int)numeroDecimal;
+        if (double.TryParse(montoTexto, out montoNumero))
+        {
+            Console.WriteLine("¿Es pago con tarjeta? y/n: ");
 
-Console.WriteLine(numeroDecimal);
-Console.WriteLine(numeroEntero2);
+            string opcion = Console.ReadLine() ?? "";
 
-//Convert
+            if (opcion == "y")
+            {
+                Console.WriteLine("Ingresa el numero de tarjeta: ");
 
-string numeroTexto = "23";
-string sumaTexto = "1" + numeroTexto;
-int numero = Convert.ToInt32(numeroTexto);
-int suma = 1+ numero;
-Console.WriteLine(numero);
-Console.WriteLine(suma);
-Console.WriteLine(sumaTexto);
+                string tarjeta = Console.ReadLine() ?? "";
 
-//Parse solo se utiliza para estrings
+                //Crear objeto
 
-string texto = "3.1416";
-double pi =double.Parse(texto);
-Console.WriteLine(pi);
-Console.WriteLine(pi*2);
+                IPago pago = new PagoTarjeta(montoNumero, tarjeta);
+
+                ListaPagos.Add(pago);
+            }
+
+            else
+            {
+
+                //Objeto pago en efectivo
+
+                IPago pago = new PagoEfectivo(montoNumero);
+                ListaPagos.Add(pago);
+            }
+
+        }
+        else
+        {
+            Console.WriteLine("Monto invalid, ocurrio un error");
+            return;
+        }
 
 
-//Parse que evita excepciones
-int piEntero;
-bool exito = int.TryParse(texto, out piEntero);
-Console.WriteLine(exito);
-Console.WriteLine(piEntero);
+    }
+    else
+    {
+        Console.WriteLine("---------Enviando pagos . . . ");
+        numerodepagos = true;
+    }
 
-//casteo de objetos 
 
-//downCasting Padre > hijo
+} while (numerodepagos != true);
 
-Animal miAnimal = new Perro(); //siempre y cuando haya espacio
+/*
+Console.WriteLine("Ingrese el monto a pagar");
+string montoTexto = Console.ReadLine()??"";
 
-//UpCasting  o HigCasting hijo > Padre conversion explicita
+//Conveirte string a double
 
-Animal otroAnimal = new Animal();
-Perro miPerro = (Perro)miAnimal;
+double montoNumero;
+
+if (double.TryParse(montoTexto, out montoNumero))
+{
+    Console.WriteLine("¿Es pago con tarjeta? y/n: ");
+
+    string opcion = Console.ReadLine() ?? "";
+
+    if(opcion == "y")
+    {
+        Console.WriteLine("Ingresa el numero de tarjeta: ");
+
+        string tarjeta = Console.ReadLine() ?? "";
+
+        //Crear objeto
+
+        IPago pago = new PagoTarjeta(montoNumero, tarjeta);
+
+        ListaPagos.Add(pago);
+    }
+
+    else
+    {
+
+        //Objeto pago en efectivo
+
+        IPago pago = new PagoEfectivo(montoNumero);
+        ListaPagos.Add(pago);
+    }
+
+}
+
+else
+{
+    Console.WriteLine("Monto invalid, ocurrio un error");
+    return;
+}
+*/
+Console.WriteLine("---------Procesando pagos . . . ");
+
+//recorrer la lista de pagos 
+
+foreach (IPago pago in ListaPagos)
+{
+    //Casteo con AS
+
+    PagoTarjeta pagotarjeta = pago as PagoTarjeta;
+
+    if (pagotarjeta != null)
+    {
+        Console.WriteLine("Verificando tarjeta . . .");
+        pago.ProcesarPago();
+    }
+    else
+    {
+        pago.ProcesarPago();
+    }
+
+}
+

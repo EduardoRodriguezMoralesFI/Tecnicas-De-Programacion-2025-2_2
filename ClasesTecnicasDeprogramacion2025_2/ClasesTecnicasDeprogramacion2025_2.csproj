@@ -8,10 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Casteosejemplos.cs" />
     <Compile Remove="EjemploInterfaces.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Casteosejemplos.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Include="EjemploInterfaces.cs" />
   </ItemGroup>
 
