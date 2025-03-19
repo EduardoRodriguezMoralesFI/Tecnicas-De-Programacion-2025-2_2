@@ -7,4 +7,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Casteosejemplos.cs" />
+    <Compile Remove="EjemploInterfaces.cs" />
+    <Compile Remove="PagoTarjetaYEfectivo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Casteosejemplos.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="EjemploInterfaces.cs" />
+    <None Include="PagoTarjetaYEfectivo.cs" />
+  </ItemGroup>
+
 </Project>
