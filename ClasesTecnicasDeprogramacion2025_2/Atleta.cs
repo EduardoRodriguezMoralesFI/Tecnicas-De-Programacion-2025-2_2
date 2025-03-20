@@ -1,21 +1,13 @@
-﻿class Atleta
+﻿public class Atleta
 {
     //Propiedades de atleta
-    /*
-     * propiedades de atleta
-     * Nombre
-     * Edad
-     * Deporte
-     * PrimeroLugares
-     * VictoriasEquipo
-     * Equipo
-     */
-    string Nombre { get; set; }
-    int Edad { get; set; }
-    string Deporte { get; set; }
-    int PrimeroLugares { get; set; }
-    int VictoriasEquipo { get; set; }
-    string Equipo { get; set; }
+    
+    public string Nombre { get; set; }
+    public int Edad { get; set; }
+    public string Deporte { get; set; }
+    public int PrimerosLugares { get; set; }
+    public int VictoriasEquipo { get; set; }
+    public string Equipo { get; set; }
 
 
     //constructor
@@ -26,10 +18,10 @@
         Edad = edad;
         Deporte = deporte;
         Equipo = equipo;
-        PrimeroLugares = 0;
+        PrimerosLugares = 0;
         VictoriasEquipo = 0;
     }
-
+    
     public string getNombre()
     {
         return Nombre;
@@ -40,42 +32,45 @@
     }
 
     // Métodos a heredar para registrar resultados individuales
+    /*
+     Podemos evitar hacer Override y podemos emplear de manera mas facil una sobrecarga de metodos,
+    ya que los podemos sobrecargar en la "class GestionCompetencias" ya que en esa clase con esa sobrecarga 
+    puede funcionar como una ""Funcion Recursiva"" (ojo en las comillas grandes).
+    Gracias por los metodos Zaa:))
+     */
     /*herencia*/
-    public void RegistrarResultadoIndividual(int posicion)
+    public void RegistrarResultadoIndividual(int posicion, string competencia)
     {
         if(posicion == 1)
         {
-            PrimeroLugares += 1;
+            PrimerosLugares ++;
         }
     }
 
     /*herencia*/
-    public void RegistrarResultadoIndividual(int posicion, string comentario)
+    public void RegistrarResultadoIndividual(int posicion, string competencia ,string comentario)
     {
-        if (posicion == 1)
-        {
-            PrimeroLugares += 1;
-        }
-        Console.WriteLine($"comentarios {comentario}");
+        Console.WriteLine($"{Nombre} - {competencia}: {comentario}");
+        RegistrarResultadoIndividual(posicion, competencia);
     }
 
     // Métodos heredar para registrar resultados en equipo
     /*herencia*/
-    public void RegistrarResultadoEquipo(int posicion)
+    public void RegistrarResultadoEquipo(string resultado, string competencia)
     {
-        if (posicion == 1)
+        if (resultado == "GANADO")
         {
-            PrimeroLugares += 1;
+            VictoriasEquipo ++;
         }
     }
 
     /*herencia*/
-    public void RegistrarResultadoEquipo(int posicion, string comentario)
+    public void RegistrarResultadoEquipo(string resultado, string competencia, string comentario)
     {
-        if (posicion == 1)
-        {
-            PrimeroLugares += 1;
-        }
-        Console.WriteLine($"comentarios {comentario}");
+        
+        Console.WriteLine($"{Equipo} - {competencia}: {comentario}");
+        RegistrarResultadoEquipo(resultado, competencia);
     }
 }
+
+///////////////////////////////////

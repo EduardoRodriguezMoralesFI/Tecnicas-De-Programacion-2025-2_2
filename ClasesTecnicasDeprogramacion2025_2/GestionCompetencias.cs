@@ -1,8 +1,6 @@
-﻿using System.Windows.Markup;
-
-class GestionCompetencias
+﻿class GestionCompetencias
 {
-  
+
     List<Competencia> competencias = new List<Competencia>();
     List<Atleta> atletas = new List<Atleta>();
     IEstrategiaEvaluacion estrategia = new EvaluacionPorPrimerosLugares();
@@ -16,7 +14,7 @@ class GestionCompetencias
     }
 
     //MEtodo para registrar un atleta
-    public void RegistrarAtleta( Atleta atleta)
+    public void RegistrarAtleta(Atleta atleta)
     {
         //Añadir atleta a la lista de atletas
         atletas.Add(atleta);
@@ -24,13 +22,14 @@ class GestionCompetencias
 
 
     //Metodo para registrar resultado invidual sin comentario
-    public void RegistrarResultadoIndividual(string nombreAtleta, int posicion)
+    public  void RegistrarResultadoIndividual(string competencia, string nombreAtleta, int posicion)
     {
-        foreach (var atleta in atletas)
+        foreach (Atleta atleta in atletas)
         {
-            if (atleta.getNombre()  == nombreAtleta)
+
+            if (atleta.Nombre == nombreAtleta)
             {
-                atleta.RegistrarResultadoIndividual(posicion);
+                atleta.RegistrarResultadoIndividual(posicion, competencia);
                 return;
             }
         }
@@ -38,13 +37,13 @@ class GestionCompetencias
     }
 
     //Metodo para registrar resultado invidual con comentario
-    public void RegistrarResultadoIndividual(string nombreAtleta, int posicion, string comentario)
+    public void RegistrarResultadoIndividual(string competencia, string nombreAtleta, int posicion, string comentario)
     {
-        foreach (var atleta in atletas)
+        foreach (Atleta atleta in atletas)
         {
-            if (atleta.getNombre() == nombreAtleta)
+            if (atleta.Nombre == nombreAtleta)
             {
-                atleta.RegistrarResultadoIndividual(posicion, comentario);
+                atleta.RegistrarResultadoIndividual(posicion, competencia, comentario);
                 return;
             }
         }
@@ -52,25 +51,26 @@ class GestionCompetencias
     }
 
     //Metodo para registrar resultado en equipo sin comentario
-    public void RegistrarResultadoEquipo(string nombreEquipo, int posicion)
+    public void RegistrarResultadoEquipo(string competencia, string nombreEquipo, string resultado)
     {
-        foreach (var atleta in atletas)
+        foreach (Atleta atleta in atletas)
         {
-            if (atleta.getNombreEquipo() == nombreEquipo)
+            if (atleta.Equipo == nombreEquipo)
             {
-                atleta.RegistrarResultadoEquipo(posicion);
+                atleta.RegistrarResultadoEquipo(resultado, competencia);
             }
         }
+        throw new Exception("Equipo no encontrado.");
     }
 
     //Metodo para registrar resultado en equipo con comentario
-    public void RegistrarResultadoEquipo(string nombreEquipo, int posicion, string comentario)
+    public void RegistrarResultadoEquipo(string competencia, string equipoNombre, string resultado, string comentario)
     {
-        foreach (var atleta in atletas)
+        foreach (Atleta atleta in atletas)
         {
-            if (atleta.getNombreEquipo() == nombreEquipo)
+            if (atleta.getNombreEquipo() == equipoNombre)
             {
-                atleta.RegistrarResultadoEquipo(posicion, comentario);
+                atleta.RegistrarResultadoEquipo(resultado, competencia, comentario);
             }
         }
     }
@@ -78,100 +78,78 @@ class GestionCompetencias
     //Metodo para cambiar criterio de evaluacion
     public void CambiarCriterio(string criterio)
     {
-        Console.WriteLine("Escribir criterio: PrimerosLugares o  Victorias");
-
-        if (criterio == "PrimerosLugares")
+        
+        if (criterio == "PRIMERO")
         {
             estrategia = new EvaluacionPorPrimerosLugares();
         }
-        else if (criterio == "Victorias")
+        else if (criterio == "VICTORIAS")
         {
             estrategia = new EvaluacionPorVictorias();
         }
         else
         {
-            Console.WriteLine("Criterio no válido.");
+            Console.WriteLine("Criterio no válido.");//Una excepcion funcional 
         }
     }
 
     //Metodo para mostrar mejor atleta
-    public void MostrarMejorAtleta(/*parametro de selección*/)
+    public void MostrarMejorAtleta(string deporte)
     {
-        Atleta mejorAtleta = null;
+        /*
+         Lista de atletas con mejor puntuacion de apoyo para los casos de
+        empate
+        solo un atleta con mejor puntuacion
+        ningun atleta con mejor puntuacion
+         */
+        List<Atleta> mejoresAtletas = new List<Atleta>();
         int maxValor = -1;
 
-        foreach (/*cada atleta en la lista de atletas*/)
+        foreach (Atleta atleta in atletas)
         {
-            if (/*comprobación del parametro de seleccion*/)
-            {
-                int valorActual = estrategia.ObtenerValor(atleta);
+            int valorActual = estrategia.ObtenerValor(atleta);
 
-                /*Algoritmo para comprobar si el atleta actual de la lista tiene mayor valor o hacer el cambio*/
+            if (valorActual > maxValor)
+            {
+                // Nuevo máximo encontrado, reiniciar la lista de mejores atletas, 
+                //Para el caso de que haya un solo mejor 
+                maxValor = valorActual;
+                mejoresAtletas.Clear();
+                mejoresAtletas.Add(atleta);
+            }
+            else if (valorActual == maxValor)
+            {
+                // Empate o empte multiple,
+                mejoresAtletas.Add(atleta);
             }
         }
 
-        if (mejorAtleta != null)
+        if (mejoresAtletas.Count == 0)
         {
-            //Imprimir resultado
+            Console.WriteLine($"No hay atletas registrados en el deporte {deporte} o no tienen valores válidos.");
+        }
+        else if (mejoresAtletas.Count == 1)
+        {
+            // Solo un mejor atleta encontrado
+            var atleta = mejoresAtletas[0];
+            Console.WriteLine($"Mejor atleta: {atleta.Nombre}  Equipo: {atleta.VictoriasEquipo}  Individual: {atleta.PrimerosLugares}.");
         }
         else
         {
-            //Imprimir resultado
+            // Cuando tenemos un empate o empate multiple
+            Console.WriteLine($"Empate entre los siguientes atletas en {deporte}:");
+            foreach (var atleta in mejoresAtletas)
+            {
+                Console.WriteLine($"{atleta.Nombre}  Equipo: {atleta.VictoriasEquipo}  Individual: {atleta.PrimerosLugares}.");
+            }
         }
     }
 
-
-    ////////////////////////--------------------------------------------------
-
-    //Metodo para registrar resultado invidual con comentario
-
-
-//Metodo para registrar resultado en equipo sin comentario
-
-//Metodo para registrar resultado en equipo con comentar
-
-//Metodo para cambiar criterio de evaluacion
-public void CambiarCriterio(string criterio)
-{
-    if (criterio == "PrimerosLugares")
-    {
-        estrategia = new EvaluacionPorPrimerosLugares();
-    }
-    else if (criterio == "Victorias")
-    {
-        estrategia = new EvaluacionPorVictorias();
-    }
-    else
-    {
-        Console.WriteLine("Criterio no válido.");
-    }
 }
 
-//Metodo para mostrar mejor atleta
-public void MostrarMejorAtleta()
-{
-    Atleta mejorAtleta = null;
-    int maxValor = -1;
+///////////////////////////////////////
 
-    foreach (var atleta in atletas)
-    {
-        int valorActual = estrategia.ObtenerValor(atleta);
-        if (valorActual > maxValor)
-        {
-            maxValor = valorActual;
-            mejorAtleta = atleta;
-        }
-    }
 
-    if (mejorAtleta != null)
-    {
-        Console.WriteLine($"El mejor atleta es {mejorAtleta.GetNombre()} con un valor de {maxValor}.");
-    }
-    else
-    {
-        Console.WriteLine("No hay atletas registrados.");
-    }
-}
 
 
 

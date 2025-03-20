@@ -3,3 +3,5 @@ interface IEstrategiaEvaluacion
 {
     int ObtenerValor(Atleta atleta);
 }
+///////////////////////////////////////////////////
+

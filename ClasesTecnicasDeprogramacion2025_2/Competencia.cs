@@ -6,8 +6,8 @@ class Competencia
      * Nombre
      * Deporte
      */
-    string Nombre { get; set; }
-    string Deporte { get; set; }
+    public string Nombre { get; set; }
+    public string Deporte { get; set; }
 
     //Constructor competencia
 
@@ -18,3 +18,5 @@ class Competencia
 
     }
 }
+
+/////////////////////////////////

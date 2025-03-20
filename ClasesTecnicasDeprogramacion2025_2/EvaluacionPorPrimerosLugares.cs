@@ -6,3 +6,4 @@ class EvaluacionPorPrimerosLugares : IEstrategiaEvaluacion
         return atleta.PrimerosLugares;
     }
 }
+/////////////////////////////

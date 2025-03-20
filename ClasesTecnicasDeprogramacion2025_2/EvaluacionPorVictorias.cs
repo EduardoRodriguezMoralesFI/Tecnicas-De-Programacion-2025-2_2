@@ -7,3 +7,4 @@ class EvaluacionPorVictorias : IEstrategiaEvaluacion
         return atleta.VictoriasEquipo;
     }
 }
+/////////////////////////////
