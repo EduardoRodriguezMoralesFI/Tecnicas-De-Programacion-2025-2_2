@@ -1,5 +1,4 @@
-﻿using System.Timers;
-
+﻿/*
 public class Robot
 {
     public float Peso { get; set; }
@@ -74,6 +73,7 @@ public class Robot
         Console.WriteLine($"El Robot es de Modelo: {Modelo}, y peso de:{Peso}");
     }
 }
+//--------------------
 
 class RobotMovil : Robot
 {
@@ -131,5 +131,100 @@ class RobotMovil : Robot
         Console.WriteLine($"Velocidad: {Velocidad}, Direccion:{Direccion}");
     }
 
+    public void Mover(float velocidad, string direccion)
+    {
+        Velocidad = velocidad;
+        Direccion = direccion;
+        Console.WriteLine($"Moviendo robot hacia {direccion} a {velocidad}");   
+    }
+
+    public void Detener()
+    {
+        Velocidad = 0.0f;
+        Direccion = "Detenido";
+        Console.WriteLine("El robot detenido");
+    }
+
+    public void GiroPorDiferemcia(string direccion)
+    {
+        if ( direccion == "Derecha")
+        {
+            MotorDerecho = 0;
+            MotorIzquierdo = 50;
+        }
+        else if (direccion == "Izquierdo")
+        {
+            MotorDerecho = 50;
+            MotorIzquierdo = 0;
+        }
+
+        Console.WriteLine($"Girando por diferencia hacia {direccion}");
+
+    }
+
+    public void GiroPorContrarrotacion(string direccion)
+    {
+        if (direccion == "Derecha")
+        {
+            MotorDerecho = -50;
+            MotorIzquierdo = 50;
+        }
+        else if (direccion == "Izquierdo")
+        {
+            MotorDerecho = 50;
+            MotorIzquierdo = -50;
+        }
+
+        Console.WriteLine($"Girando por Contrarrotacion hacia {direccion}");
+
+    }
+
+    public void ObtenerDistanciaSensor()
+    {
+        Random random = new Random();
+        int distancia = random.Next(10, 100);
+        Console.WriteLine($"Distancia medida por el sensor ultrasonido es de: {distancia}");
+    }
+
+    public void ConsumirEnergia(int cantidad)
+    {
+        if(EnergiaDisponible<=100 && EnergiaDisponible > 0 && EnergiaDisponible>=cantidad)
+        {
+            EnergiaDisponible -=cantidad;
+            Console.WriteLine($"Energia disponible{EnergiaDisponible}");
+        }
+        else
+        {
+            Console.WriteLine($"Energia insuficiente{EnergiaDisponible}, regara necesaria");
+        }
+    }
+
+    public void AumentarVelocidad(int incremento)
+    {
+        if(Velocidad+ incremento <= 100)
+        {
+            Velocidad += incremento;
+            Console.WriteLine($"Velocidad aumentada a {Velocidad} cm/s");
+        }
+        else
+        {
+            Console.WriteLine("Velocidad maxica implementa el programa de pago");
+        }
+    }
+
+    public void ReducirVelocidad(int decremento )
+    {
+        if (Velocidad - decremento > 0)
+        {
+            Velocidad -= decremento;
+            Console.WriteLine($"Velocidad disminuida  a {Velocidad} cm/s");
+        }
+        else
+        {
+            Console.WriteLine("Velocidad negativa");
+        }
+
+    }
 
 }
+*/

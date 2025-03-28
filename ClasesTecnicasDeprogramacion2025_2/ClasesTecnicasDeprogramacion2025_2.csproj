@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Practica1RME">
+      <HintPath>..\..\..\..\..\Documents\TDP1\Practica1RME\bin\Debug\net8.0\Practica1RME.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
