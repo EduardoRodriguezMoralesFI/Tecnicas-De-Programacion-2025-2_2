@@ -73,21 +73,62 @@ while (ejecutando)
         case 8:
             if (miRobotMovil.Estado)
             {
-                Console.WriteLine("INgresa la direccion de giro por diferencia");
+                Console.WriteLine("Ingresa la direccion de giro por diferencia");
                 string direccion = Console.ReadLine()??"";
                 miRobotMovil.GiroPorDiferemcia(direccion);
+                miRobotMovil.ConsumirEnergia(5);
 
+            }
+            else
+            {
+                Console.WriteLine("Robot apagado");
             }
             break;
         case 9:
+            if (miRobotMovil.Estado)
+            {
+                Console.WriteLine("Ingresa la direccion ");
+                string direccion = Console.ReadLine() ?? "";
+                miRobotMovil.GiroPorContrarrotacion(direccion);
+                miRobotMovil.ConsumirEnergia(5);
+
+            }
+            else
+            {
+                Console.WriteLine("Robot apagado");
+            }
             break;
         case 10:
+            miRobotMovil.ObtenerDistanciaSensor();
             break;
         case 11:
+            if (miRobotMovil.Estado)
+            {
+                miRobotMovil.AumentarVelocidad(10);
+                miRobotMovil.ConsumirEnergia(5);
+            }
+            else
+            {
+                Console.WriteLine("Robot apagado");
+            }
             break;
         case 12:
+            if (miRobotMovil.Estado)
+            {
+                miRobotMovil.ReducirVelocidad(10);
+                miRobotMovil.ConsumirEnergia(5);
+            }
+            else
+            {
+                Console.WriteLine("Robot apagado");
+            }
             break;
         case 0:
+            ejecutando = false;
+            Console.WriteLine("Saliendo del programa");
+            break;
+        default:
+            Console.WriteLine("Opcion invalida");
             break;
 
     }
